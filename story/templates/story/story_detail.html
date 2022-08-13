@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{story.title}}</title>
+{% endblock%}
+
+
+{% block body %}
+    <div class='container'>
+    <h2 class="text-center">{{story.title}}</h2><hr>
+    <ul>
+        Tag: {% for tag in story.tags.all %}
+        <a href='{% url "story:story_by_tag" tag.slug %}'>{{tag.name}} • </a> 
+        {% endfor %}
+    </ul>
+    <h3>Streamtape</h3>
+      <div class="container10">
+        <iframe class="responsive-iframe" src="{{story.body}}" width="800" height="600" allowfullscreen allowtransparency allow="autoplay" scrolling="no" frameborder="0"></iframe>
+      </div>
+    </div>
+    <hr>
+    <h2>Similar posts</h2>
+    {% for post in similar_posts %}
+    <p>
+    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </p>
+    {% empty %}
+    There are no similar story yet.
+    {% endfor %}</div>
+
+
+{% endblock %}
